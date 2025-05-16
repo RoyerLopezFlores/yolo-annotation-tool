@@ -5,10 +5,33 @@ from PyQt6.QtWidgets import QApplication, QLabel, QPushButton, QVBoxLayout, QWid
 from PyQt6.QtGui import QPixmap, QImage,QPainter,QPen,QColor,QKeyEvent
 from PyQt6.QtCore import Qt,QRect
 import sys
+import json
+def get_resource_path(relative_path):
+    """Obtiene el path absoluto al recurso, funciona para dev y .exe"""
+    if getattr(sys, 'frozen', False):  # Si es ejecutable
+        base_path = sys._MEIPASS  # Carpeta temporal creada por PyInstaller
+    else:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+def get_config_path():
+    # Carpeta donde se encuentra el .exe o .py
+    if getattr(sys, 'frozen', False):  # Si está empaquetado
+        base_path = os.path.dirname(sys.executable)
+    else:  # Modo desarrollo
+        base_path = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(base_path, "config.json")
 PATH_BASE = "E:/yolo_data/hasty_post/hasty_post4"
+class_names = ["post", "react_fb"]
+with open(get_config_path(),"r") as file:
+    config = json.load(file)
+    PATH_BASE = config.get("directory_data", PATH_BASE)
+    class_names = config.get("class_names", class_names)
+print(PATH_BASE,class_names)
 PATH_IMAGES = os.path.join(PATH_BASE, "images")
 PATH_LABELS = os.path.join(PATH_BASE, "labels")
-class_names = ["post", "react_fb"]
+os.makedirs(PATH_LABELS, exist_ok=True)
+os.makedirs(PATH_IMAGES, exist_ok=True)
+print(os.listdir(PATH_IMAGES))
 hasty = False
 colors = [QColor(255, 0, 0), QColor(0, 255, 0), QColor(0, 0, 255), QColor(255, 255, 0), QColor(255, 0, 255), QColor(0, 255, 255)]
 MAX_HEIGHT_IMAGE = 800

@@ -1,1 +1,9 @@
 use*.py
+*.spec
+*.exe
+!app.exe
+runs/
+dist/
+build/
+env/
+XD/
