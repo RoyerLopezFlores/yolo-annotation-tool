@@ -1,5 +1,5 @@
 {
-    "directory_data":"E:/yolo_data/wafle_detector/data",
+    "directory_data":"./data",
     "class_names": [
         "waffle"
     ]
