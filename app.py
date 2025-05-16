@@ -11,7 +11,8 @@ PATH_LABELS = os.path.join(PATH_BASE, "labels")
 class_names = ["post", "react_fb"]
 hasty = False
 colors = [QColor(255, 0, 0), QColor(0, 255, 0), QColor(0, 0, 255), QColor(255, 255, 0), QColor(255, 0, 255), QColor(0, 255, 255)]
-def resize_image_to_height(img, max_height=800):
+MAX_HEIGHT_IMAGE = 800
+def resize_image_to_height(img, max_height=MAX_HEIGHT_IMAGE):
     h, w = img.shape[:2]
     if h <= max_height:
         return img
@@ -277,35 +278,7 @@ class YoloViewer(QWidget):
         #    if event.key() == Qt.Key.Key_S:
         #        self.save_boxes()
         return super().keyPressEvent(event)
-# Cambia esto por tu ruta
-#files_images = os.listdir(PATH_IMAGES)
-#files_labels = os.listdir(PATH_LABELS)
-#image_path = os.path.join(PATH_IMAGES, files_images[2])  # Cambia el índice para otra imagen
-#
-#label_path = os.path.splitext(image_path)[0] + '.txt'  # mismo nombre, extensión .txt
-#background = False
-#if label_path not in files_labels:
-#    print(f"Label file {label_path} not found.")
-#    background = True
-## Leer imagen
-#img = cv2.imread(image_path)
-#h, w = img.shape[:2]
-#
-## Cargar etiquetas
-#if not background:
-#    boxes = load_yolo_labels(label_path, w, h)
-#else:
-#    boxes = []
-## (Opcional) Nombres de clases
-#class_names = ["1","2"]  # cambia esto según tu dataset
-#
-## Dibujar cajas
-#draw_boxes(img, boxes, class_names)
-#
-## Mostrar imagen
-#cv2.imshow("YOLO Labels", img)
-#cv2.waitKey(0)
-#cv2.destroyAllWindows()
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
